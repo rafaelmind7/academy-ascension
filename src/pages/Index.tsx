@@ -1,14 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from "react";
+import NeuralLogin from "@/components/NeuralLogin";
+import NeuralDashboard from "@/components/NeuralDashboard";
+import AutomationNexus from "@/components/AutomationNexus";
+
+type ViewState = "login" | "dashboard" | "automation";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [currentView, setCurrentView] = useState<ViewState>("login");
+
+  const handleLogin = () => {
+    setCurrentView("dashboard");
+  };
+
+  const handleNavigateToAutomation = () => {
+    setCurrentView("automation");
+  };
+
+  const handleBackToDashboard = () => {
+    setCurrentView("dashboard");
+  };
+
+  switch (currentView) {
+    case "login":
+      return <NeuralLogin onLogin={handleLogin} />;
+    case "dashboard":
+      return <NeuralDashboard onNavigateToAutomation={handleNavigateToAutomation} />;
+    case "automation":
+      return <AutomationNexus onBackToDashboard={handleBackToDashboard} />;
+    default:
+      return <NeuralLogin onLogin={handleLogin} />;
+  }
 };
 
 export default Index;
