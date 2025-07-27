@@ -1,187 +1,65 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ADICIONE ESTE CSS NO FINAL DO SEU index.css */
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
-@layer base {
-  :root {
-    /* Mind77 Neural Academy Design System */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
-    /* Neural Primary - Cyan Blue */
-    --primary: 188 95% 43%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 188 95% 60%;
-
-    /* Neural Secondary - Gray */
-    --secondary: 60 4% 76%;
-    --secondary-foreground: 0 0% 0%;
-
-    --muted: 60 4% 90%;
-    --muted-foreground: 0 0% 40%;
-
-    --accent: 188 95% 43%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 60 4% 85%;
-    --input: 60 4% 85%;
-    --ring: 188 95% 43%;
-
-    --radius: 0.75rem;
-
-    /* Neural Gradients */
-    --gradient-neural: linear-gradient(45deg, hsl(0 0% 0%), hsl(188 95% 43%));
-    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.1), hsla(0 0% 100% / 0.05));
-    
-    /* Neural Effects */
-    --shadow-neural: 0 0 30px hsla(188 95% 43% / 0.3);
-    --shadow-glow: 0 0 20px hsla(188 95% 60% / 0.4);
-    
-    /* Animations */
-    --transition-neural: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
-
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 100%;
-
-    --primary: 188 95% 43%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 188 95% 60%;
-
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 70%;
-
-    --accent: 188 95% 43%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 188 95% 43%;
-
-    /* Dark Neural Gradients */
-    --gradient-neural: linear-gradient(45deg, hsl(0 0% 0%), hsl(188 95% 43%));
-    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.15), hsla(0 0% 100% / 0.08));
-    
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-/* ANIMAÇÕES NEURAIS AVANÇADAS */
-
-/* Animações da rede neural */
-@keyframes neural-node-appear {
-  0% { 
-    transform: scale(0);
+/* Animações da formação neural */
+@keyframes nodeForm {
+  0% {
     opacity: 0;
+    transform: scale(0);
+    filter: blur(10px);
   }
   50% {
-    transform: scale(1.2);
     opacity: 0.8;
+    transform: scale(1.3);
+    filter: blur(2px);
   }
-  100% { 
-    transform: scale(1);
+  100% {
     opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
   }
 }
 
-@keyframes neural-connection-draw {
-  0% { 
-    stroke-dasharray: 0 1000;
+@keyframes connectionForm {
+  0% {
     opacity: 0;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
   }
-  100% { 
-    stroke-dasharray: 1000 0;
+  100% {
+    opacity: 0.8;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes nodePulse {
+  0%, 100% {
     opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+    filter: brightness(1.3);
   }
 }
 
-@keyframes neural-structure-glow {
-  0%, 100% { 
-    filter: brightness(1) drop-shadow(0 0 5px #0cc0df);
-  }
-  50% { 
-    filter: brightness(1.5) drop-shadow(0 0 20px #0cc0df);
-  }
-}
-
-@keyframes robot-eye-blink {
-  0%, 85%, 100% { 
+@keyframes robotBlink {
+  0%, 85%, 100% {
     opacity: 1;
     transform: scale(1);
   }
-  90%, 95% { 
+  90%, 95% {
     opacity: 0.3;
     transform: scale(0.8);
   }
 }
 
-@keyframes neural-robot-transform {
-  0% {
-    transform: scale(0.8) rotate(-5deg);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-}
-
-@keyframes text-fade-in {
+@keyframes fadeInUp {
   0% {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   100% {
     opacity: 1;
@@ -189,95 +67,21 @@ All colors MUST be HSL.
   }
 }
 
-@keyframes data-particle {
-  0% {
-    opacity: 0;
-    r: 1;
-  }
-  50% {
-    opacity: 1;
-    r: 2;
-  }
-  100% {
-    opacity: 0;
-    r: 1;
-  }
+/* Classes para as animações */
+.neural-connection {
+  filter: drop-shadow(0 0 3px currentColor);
+  stroke-linecap: round;
 }
 
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) rotate(0deg);
-    opacity: 0.6;
-  }
-  50% { 
-    transform: translateY(-15px) rotate(180deg);
-    opacity: 1;
-  }
+.neural-node {
+  filter: drop-shadow(0 0 6px currentColor);
 }
 
-@keyframes pulse-slow {
-  0%, 100% { 
-    opacity: 0.4;
-  }
-  50% { 
-    opacity: 0.8;
-  }
+.robot-eyes {
+  filter: drop-shadow(0 0 8px #06b6d4);
 }
 
-@keyframes pulse-glow {
-  0%, 100% { 
-    opacity: 0.6;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% { 
-    opacity: 1;
-    transform: scale(1.1);
-    filter: brightness(1.3);
-  }
-}
-
-/* Classes utilitárias */
-.neural-node-appear {
-  animation: neural-node-appear 0.8s ease-out forwards;
-}
-
-.neural-connection-draw {
-  animation: neural-connection-draw 1s ease-out forwards;
-}
-
-.neural-structure-glow {
-  animation: neural-structure-glow 2s ease-in-out infinite;
-}
-
-.robot-eye-blink {
-  animation: robot-eye-blink 3s ease-in-out infinite;
-}
-
-.neural-robot-transform {
-  animation: neural-robot-transform 2s ease-out forwards;
-}
-
-.text-fade-in {
-  animation: text-fade-in 1s ease-out forwards;
-}
-
-.data-particle {
-  animation: data-particle 1s ease-in-out infinite;
-}
-
-.neural-text-glow {
-  text-shadow: 0 0 10px rgba(12, 192, 223, 0.5);
-}
-
-.animate-float {
-  animation: float 8s ease-in-out infinite;
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease-out forwards;
+  opacity: 0;
 }
