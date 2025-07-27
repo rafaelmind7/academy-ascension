@@ -456,3 +456,480 @@
   animation: consciousness-pulse 4s ease-in-out infinite;
   pointer-events: none;
 }
+/* ADICIONE ESTE CÓDIGO NO FINAL DO SEU index.css - DEPOIS DE TODO O CONTEÚDO EXISTENTE */
+
+/* ======================================= */
+/* NEURAL NETWORK FORMATION ANIMATIONS    */
+/* ======================================= */
+
+/* Animações de formação da rede neural */
+@keyframes neural-node-form {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+    filter: blur(10px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: scale(0.5);
+    filter: blur(5px);
+  }
+  70% {
+    opacity: 0.8;
+    transform: scale(1.2);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes neural-line-form {
+  0% {
+    opacity: 0;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 0.5;
+    stroke-dashoffset: 50;
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0.8;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 0;
+    filter: blur(0px);
+  }
+}
+
+@keyframes neural-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes neural-core-pulse {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0.6;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(10px, -10px) scale(1);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(30px, -5px) scale(1.2);
+    opacity: 0.8;
+  }
+  60% {
+    transform: translate(50px, 5px) scale(1);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(70px, 10px) scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(100px, 20px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes neural-breathe {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+  66% {
+    transform: scale(0.95);
+    opacity: 0.4;
+  }
+}
+
+@keyframes consciousness-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  25% {
+    opacity: 0.6;
+    transform: scale(1.02);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+  75% {
+    opacity: 0.7;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes synapse-fire {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+    filter: brightness(1);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: brightness(2);
+  }
+  30% {
+    opacity: 0.8;
+    transform: scale(1);
+    filter: brightness(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: brightness(1);
+  }
+}
+
+@keyframes connection-grow {
+  0% {
+    stroke-dasharray: 0, 1000;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    stroke-dasharray: 1000, 0;
+    opacity: 0.8;
+  }
+}
+
+@keyframes neural-thought {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    opacity: 0.6;
+    transform: translateY(-5px) scale(1.1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateY(-10px) scale(1.05);
+  }
+  75% {
+    opacity: 0.7;
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+@keyframes consciousness-scan {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes intelligence-forming {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-10deg);
+    filter: blur(5px) hue-rotate(0deg);
+  }
+  25% {
+    opacity: 0.3;
+    transform: scale(0.9) rotate(-5deg);
+    filter: blur(3px) hue-rotate(90deg);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05) rotate(0deg);
+    filter: blur(1px) hue-rotate(180deg);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1.02) rotate(2deg);
+    filter: blur(0.5px) hue-rotate(270deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: blur(0px) hue-rotate(360deg);
+  }
+}
+
+@keyframes neural-scan {
+  0% {
+    transform: translateX(-100%) skewX(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) skewX(45deg);
+    opacity: 0;
+  }
+}
+
+/* ======================================= */
+/* NEURAL NETWORK CLASSES                 */
+/* ======================================= */
+
+.bg-gradient-radial {
+  background: radial-gradient(
+    circle at center,
+    rgba(12, 192, 223, 0.1) 0%,
+    rgba(59, 130, 246, 0.05) 30%,
+    transparent 70%
+  );
+}
+
+.neural-network-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.neural-node {
+  filter: drop-shadow(0 0 6px currentColor);
+  transition: all 0.3s ease;
+}
+
+.neural-connection-line {
+  filter: drop-shadow(0 0 3px currentColor);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ai-consciousness {
+  background: conic-gradient(
+    from 0deg,
+    rgba(12, 192, 223, 0.2),
+    rgba(59, 130, 246, 0.3),
+    rgba(147, 51, 234, 0.2),
+    rgba(12, 192, 223, 0.2)
+  );
+  animation: consciousness-pulse 8s ease-in-out infinite;
+}
+
+.neural-activity {
+  position: relative;
+  overflow: hidden;
+}
+
+.neural-activity::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(12, 192, 223, 0.3),
+    transparent
+  );
+  animation: neural-scan 3s ease-in-out infinite;
+}
+
+.synapse-active {
+  animation: synapse-fire 0.5s ease-out;
+}
+
+.thought-bubble {
+  animation: neural-thought 4s ease-in-out infinite;
+}
+
+.consciousness-scanner {
+  animation: consciousness-scan 8s linear infinite;
+}
+
+.intelligence-forming {
+  animation: intelligence-forming 12s ease-out forwards;
+}
+
+/* Animações específicas para diferentes tipos de nós */
+.brain-node {
+  fill: #0cc0df;
+  animation: neural-pulse 2s ease-in-out infinite;
+}
+
+.bulb-node {
+  fill: #3b82f6;
+  animation: neural-pulse 2.5s ease-in-out infinite;
+}
+
+.core-node {
+  fill: #06b6d4;
+  animation: neural-pulse 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px #06b6d4);
+}
+
+.expansion-node {
+  fill: #6366f1;
+  animation: neural-pulse 3s ease-in-out infinite;
+}
+
+/* Efeitos de hover para elementos neurais */
+.neural-interactive:hover .neural-node {
+  transform: scale(1.1);
+  filter: brightness(1.3) drop-shadow(0 0 10px currentColor);
+}
+
+.neural-interactive:hover .neural-connection-line {
+  stroke-width: 0.5;
+  opacity: 1;
+  filter: brightness(1.2) drop-shadow(0 0 5px currentColor);
+}
+
+/* Partículas de dados neurais */
+.neural-data-particle {
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, #0cc0df, transparent);
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  animation: data-flow 4s ease-in-out infinite;
+}
+
+/* Efeito especial quando a rede está totalmente formada */
+.network-complete .neural-node {
+  animation: neural-pulse 2s ease-in-out infinite, synapse-fire 0.3s ease-out infinite;
+}
+
+.network-complete .neural-connection-line {
+  animation: connection-grow 2s ease-out infinite;
+}
+
+.network-complete {
+  position: relative;
+}
+
+.network-complete::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(12, 192, 223, 0.05) 0%,
+    transparent 50%
+  );
+  animation: consciousness-pulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ======================================= */
+/* RESPONSIVIDADE                          */
+/* ======================================= */
+
+@media (max-width: 768px) {
+  .neural-node {
+    r: 2;
+  }
+  
+  .neural-connection-line {
+    stroke-width: 0.2;
+  }
+  
+  .neural-data-particle {
+    width: 1px;
+    height: 1px;
+  }
+  
+  .consciousness-pulse,
+  .neural-breathe,
+  .data-flow {
+    animation-duration: 3s;
+  }
+}
+
+@media (max-width: 480px) {
+  .neural-pulse,
+  .neural-core-pulse {
+    animation-duration: 1.5s;
+  }
+  
+  .bg-gradient-radial {
+    background-size: 150% 150%;
+  }
+}
+
+/* ======================================= */
+/* PERFORMANCE & ACESSIBILIDADE           */
+/* ======================================= */
+
+.neural-optimized {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+.neural-network-container {
+  contain: layout style paint;
+}
+
+/* Reduzir animações para dispositivos com movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .neural-pulse,
+  .neural-core-pulse,
+  .data-flow,
+  .neural-breathe,
+  .consciousness-pulse,
+  .synapse-fire,
+  .neural-thought,
+  .consciousness-scan,
+  .intelligence-forming {
+    animation: none;
+  }
+  
+  .neural-node {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .neural-connection-line {
+    opacity: 0.6;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+}
