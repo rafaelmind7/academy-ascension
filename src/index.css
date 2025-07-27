@@ -5,32 +5,43 @@
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
+
 @layer base {
   :root {
     /* Mind77 Neural Academy Design System */
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
+
     --card: 0 0% 100%;
     --card-foreground: 0 0% 0%;
+
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
+
     /* Neural Primary - Cyan Blue */
     --primary: 188 95% 43%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 188 95% 60%;
+
     /* Neural Secondary - Gray */
     --secondary: 60 4% 76%;
     --secondary-foreground: 0 0% 0%;
+
     --muted: 60 4% 90%;
     --muted-foreground: 0 0% 40%;
+
     --accent: 188 95% 43%;
     --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
+
     --border: 60 4% 85%;
     --input: 60 4% 85%;
     --ring: 188 95% 43%;
+
     --radius: 0.75rem;
+
     /* Neural Gradients */
     --gradient-neural: linear-gradient(45deg, hsl(0 0% 0%), hsl(188 95% 43%));
     --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.1), hsla(0 0% 100% / 0.05));
@@ -41,6 +52,7 @@ All colors MUST be HSL.
     
     /* Animations */
     --transition-neural: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -50,27 +62,37 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
     --background: 0 0% 0%;
     --foreground: 0 0% 100%;
+
     --card: 0 0% 5%;
     --card-foreground: 0 0% 100%;
+
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 100%;
+
     --primary: 188 95% 43%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 188 95% 60%;
+
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 100%;
+
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 70%;
+
     --accent: 188 95% 43%;
     --accent-foreground: 0 0% 100%;
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
+
     --border: 0 0% 15%;
     --input: 0 0% 15%;
     --ring: 188 95% 43%;
+
     /* Dark Neural Gradients */
     --gradient-neural: linear-gradient(45deg, hsl(0 0% 0%), hsl(188 95% 43%));
     --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.15), hsla(0 0% 100% / 0.08));
@@ -90,325 +112,8 @@ All colors MUST be HSL.
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* ======================================= */
-/* NEURAL NETWORK FORMATION ANIMATIONS    */
-/* ======================================= */
-
-/* Animações de formação da rede neural */
-@keyframes neural-node-form {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-    filter: blur(10px);
-  }
-  30% {
-    opacity: 0.3;
-    transform: scale(0.5);
-    filter: blur(5px);
-  }
-  70% {
-    opacity: 0.8;
-    transform: scale(1.2);
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0px);
-  }
-}
-
-@keyframes neural-line-form {
-  0% {
-    opacity: 0;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 100;
-    filter: blur(2px);
-  }
-  50% {
-    opacity: 0.5;
-    stroke-dashoffset: 50;
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 0.8;
-    stroke-dasharray: 100;
-    stroke-dashoffset: 0;
-    filter: blur(0px);
-  }
-}
-
-@keyframes neural-pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.1);
-    filter: brightness(1.3);
-  }
-}
-
-@keyframes neural-core-pulse {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  30% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  70% {
-    opacity: 0.6;
-    transform: scale(0.8);
-  }
-}
-
-@keyframes data-flow {
-  0% {
-    transform: translate(0, 0) scale(0);
-    opacity: 0;
-  }
-  20% {
-    transform: translate(10px, -10px) scale(1);
-    opacity: 1;
-  }
-  40% {
-    transform: translate(30px, -5px) scale(1.2);
-    opacity: 0.8;
-  }
-  60% {
-    transform: translate(50px, 5px) scale(1);
-    opacity: 1;
-  }
-  80% {
-    transform: translate(70px, 10px) scale(0.8);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translate(100px, 20px) scale(0);
-    opacity: 0;
-  }
-}
-
-@keyframes neural-breathe {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  33% {
-    transform: scale(1.05);
-    opacity: 0.5;
-  }
-  66% {
-    transform: scale(0.95);
-    opacity: 0.4;
-  }
-}
-
-@keyframes consciousness-pulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  25% {
-    opacity: 0.6;
-    transform: scale(1.02);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(1.05);
-  }
-  75% {
-    opacity: 0.7;
-    transform: scale(1.03);
-  }
-}
-
-@keyframes neural-scan {
-  0% {
-    transform: translateX(-100%) skewX(45deg);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(100%) skewX(45deg);
-    opacity: 0;
-  }
-}
-
-/* ======================================= */
-/* NEURAL NETWORK CLASSES                 */
-/* ======================================= */
-
-.bg-gradient-radial {
-  background: radial-gradient(
-    circle at center,
-    rgba(12, 192, 223, 0.1) 0%,
-    rgba(59, 130, 246, 0.05) 30%,
-    transparent 70%
-  );
-}
-
-.neural-network-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.neural-node {
-  filter: drop-shadow(0 0 6px currentColor);
-  transition: all 0.3s ease;
-}
-
-.neural-connection-line {
-  filter: drop-shadow(0 0 3px currentColor);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.ai-consciousness {
-  background: conic-gradient(
-    from 0deg,
-    rgba(12, 192, 223, 0.2),
-    rgba(59, 130, 246, 0.3),
-    rgba(147, 51, 234, 0.2),
-    rgba(12, 192, 223, 0.2)
-  );
-  animation: consciousness-pulse 8s ease-in-out infinite;
-}
-
-.neural-activity {
-  position: relative;
-  overflow: hidden;
-}
-
-.neural-activity::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(12, 192, 223, 0.3),
-    transparent
-  );
-  animation: neural-scan 3s ease-in-out infinite;
-}
-
-.consciousness-scanner {
-  animation: consciousness-scan 8s linear infinite;
-}
-
-@keyframes consciousness-scan {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: rotate(360deg);
-    opacity: 0.3;
-  }
-}
-
-/* Performance optimizations */
-.neural-optimized {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000px;
-  will-change: transform, opacity;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-  .neural-node {
-    r: 2;
-  }
-  
-  .neural-connection-line {
-    stroke-width: 0.2;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .neural-pulse,
-  .neural-core-pulse,
-  .data-flow,
-  .neural-breathe,
-  .consciousness-pulse,
-  .consciousness-scan {
-    animation: none;
-  }
-  
-  .neural-node {
-    opacity: 1;
-    transform: scale(1);
-  }
-  
-  .neural-connection-line {
-    opacity: 0.6;
-    stroke-dasharray: none;
-    stroke-dashoffset: 0;
   }
 }

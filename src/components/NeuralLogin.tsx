@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Cpu, Zap, CircuitBoard, Eye, Brain } from "lucide-react";
+import { Loader2, Cpu, Zap, CircuitBoard, Eye, Brain, Activity } from "lucide-react";
 
 interface NeuralLoginProps {
   onLogin: () => void;
@@ -16,13 +16,6 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [keepConnection, setKeepConnection] = useState(false);
   const [aiScanning, setAiScanning] = useState(false);
-  const [networkFormed, setNetworkFormed] = useState(false);
-
-  useEffect(() => {
-    // Simular formação da rede neural ao carregar
-    const timer = setTimeout(() => setNetworkFormed(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleFocus = () => setAiScanning(true);
   const handleBlur = () => setAiScanning(false);
@@ -43,227 +36,122 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
     }, 150);
   };
 
-  // Nós neurais que formam a estrutura cerebral
-  const neuralNodes = [
-    // Região do cérebro (lado esquerdo da logo)
-    { x: 25, y: 30, size: 3, delay: 0, type: 'brain' },
-    { x: 35, y: 25, size: 2, delay: 0.5, type: 'brain' },
-    { x: 45, y: 35, size: 4, delay: 1, type: 'brain' },
-    { x: 30, y: 45, size: 2, delay: 1.5, type: 'brain' },
-    { x: 40, y: 55, size: 3, delay: 2, type: 'brain' },
-    { x: 20, y: 40, size: 2, delay: 2.5, type: 'brain' },
-    { x: 50, y: 45, size: 2, delay: 3, type: 'brain' },
-    { x: 35, y: 60, size: 3, delay: 3.5, type: 'brain' },
-    
-    // Região da lâmpada (lado direito da logo)
-    { x: 65, y: 35, size: 3, delay: 4, type: 'bulb' },
-    { x: 75, y: 30, size: 2, delay: 4.5, type: 'bulb' },
-    { x: 70, y: 45, size: 4, delay: 5, type: 'bulb' },
-    { x: 80, y: 40, size: 2, delay: 5.5, type: 'bulb' },
-    { x: 75, y: 55, size: 3, delay: 6, type: 'bulb' },
-    
-    // Nós de conexão central
-    { x: 55, y: 40, size: 5, delay: 6.5, type: 'core' },
-    { x: 50, y: 30, size: 3, delay: 7, type: 'core' },
-    { x: 60, y: 50, size: 3, delay: 7.5, type: 'core' },
-    
-    // Nós de dispersão (representando a rede se expandindo)
-    { x: 15, y: 20, size: 1, delay: 8, type: 'expansion' },
-    { x: 85, y: 25, size: 1, delay: 8.5, type: 'expansion' },
-    { x: 10, y: 60, size: 1, delay: 9, type: 'expansion' },
-    { x: 90, y: 65, size: 1, delay: 9.5, type: 'expansion' },
-    { x: 50, y: 15, size: 1, delay: 10, type: 'expansion' },
-    { x: 45, y: 75, size: 1, delay: 10.5, type: 'expansion' }
-  ];
-
-  // Conexões neurais que vão se formando
-  const neuralConnections = [
-    // Conexões internas do cérebro
-    { from: 0, to: 1, delay: 1 },
-    { from: 1, to: 2, delay: 1.5 },
-    { from: 2, to: 3, delay: 2 },
-    { from: 3, to: 4, delay: 2.5 },
-    { from: 0, to: 5, delay: 3 },
-    { from: 2, to: 6, delay: 3.5 },
-    { from: 4, to: 7, delay: 4 },
-    
-    // Conexões da lâmpada
-    { from: 8, to: 9, delay: 5 },
-    { from: 8, to: 10, delay: 5.5 },
-    { from: 10, to: 11, delay: 6 },
-    { from: 10, to: 12, delay: 6.5 },
-    
-    // Conexões centrais (cérebro para lâmpada)
-    { from: 2, to: 13, delay: 7 },
-    { from: 13, to: 8, delay: 7.5 },
-    { from: 6, to: 14, delay: 8 },
-    { from: 14, to: 10, delay: 8.5 },
-    { from: 4, to: 15, delay: 9 },
-    { from: 15, to: 12, delay: 9.5 },
-    
-    // Conexões de expansão
-    { from: 1, to: 16, delay: 10 },
-    { from: 9, to: 17, delay: 10.5 },
-    { from: 5, to: 18, delay: 11 },
-    { from: 11, to: 19, delay: 11.5 },
-    { from: 14, to: 20, delay: 12 },
-    { from: 15, to: 21, delay: 12.5 }
-  ];
-
-  // Partículas de dados fluindo pelas conexões
-  const dataParticles = Array.from({ length: 15 }, (_, i) => (
+  // Floating particles - muito mais sutis
+  const subtleParticles = Array.from({ length: 8 }, (_, i) => (
     <div
       key={i}
-      className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-80 animate-data-flow"
+      className="absolute w-1 h-1 bg-cyan-400/40 rounded-full animate-float opacity-60"
       style={{
-        left: `${20 + Math.random() * 60}%`,
-        top: `${20 + Math.random() * 60}%`,
-        animationDelay: `${Math.random() * 8}s`,
-        animationDuration: `${3 + Math.random() * 4}s`,
+        left: `${15 + Math.random() * 70}%`,
+        top: `${15 + Math.random() * 70}%`,
+        animationDelay: `${Math.random() * 5}s`,
+        animationDuration: `${8 + Math.random() * 4}s`,
       }}
     />
   ));
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-      {/* Background with Neural Network Formation */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black">
+      {/* Background Elegante e Minimalista */}
+      <div className="absolute inset-0">
+        {/* Gradiente base sofisticado */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
         
-        {/* Base tech grid - mais sutil */}
+        {/* Grid sutil apenas */}
         <div 
           className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(12, 192, 223, 0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(12, 192, 223, 0.05) 1px, transparent 1px)
+              linear-gradient(rgba(12, 192, 223, 0.03) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(12, 192, 223, 0.03) 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px'
+            backgroundSize: '60px 60px'
           }}
         />
         
-        {/* Neural Network Formation SVG */}
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          viewBox="0 0 100 100" 
-          preserveAspectRatio="xMidYMid slice"
-        >
-          {/* Conexões neurais */}
-          {neuralConnections.map((connection, index) => {
-            const fromNode = neuralNodes[connection.from];
-            const toNode = neuralNodes[connection.to];
-            return (
-              <line
-                key={index}
-                x1={fromNode.x}
-                y1={fromNode.y}
-                x2={toNode.x}
-                y2={toNode.y}
-                stroke="url(#connectionGradient)"
-                strokeWidth="0.3"
-                opacity="0"
-                className="neural-connection-line"
-                style={{
-                  animation: `neural-line-form 1s ease-out ${connection.delay}s forwards`
-                }}
-              />
-            );
-          })}
-          
-          {/* Nós neurais */}
-          {neuralNodes.map((node, index) => (
-            <g key={index}>
-              {/* Glow externo */}
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={node.size + 1}
-                fill="url(#nodeGlow)"
-                opacity="0"
-                className="neural-node-glow"
-                style={{
-                  animation: `neural-node-form 0.8s ease-out ${node.delay}s forwards`
-                }}
-              />
-              {/* Nó principal */}
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={node.size}
-                fill={
-                  node.type === 'brain' ? '#0cc0df' :
-                  node.type === 'bulb' ? '#3b82f6' :
-                  node.type === 'core' ? '#06b6d4' :
-                  '#6366f1'
-                }
-                opacity="0"
-                className="neural-node"
-                style={{
-                  animation: `neural-node-form 0.5s ease-out ${node.delay}s forwards, neural-pulse 2s ease-in-out ${node.delay + 1}s infinite`
-                }}
-              />
-              {/* Pulso interno */}
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={node.size * 0.6}
-                fill="rgba(255, 255, 255, 0.8)"
-                opacity="0"
-                className="neural-node-core"
-                style={{
-                  animation: `neural-core-pulse 1.5s ease-in-out ${node.delay + 0.5}s infinite`
-                }}
-              />
+        {/* Rede neural minimalista centralizada */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <svg 
+            className="w-full h-full max-w-4xl max-h-4xl opacity-30" 
+            viewBox="0 0 800 600" 
+            preserveAspectRatio="xMidYMid meet"
+          >
+            {/* Conexões principais - formando um padrão cerebral elegante */}
+            <g stroke="url(#connectionGradient)" strokeWidth="1" fill="none" opacity="0.6">
+              {/* Linha central principal */}
+              <line x1="200" y1="300" x2="600" y2="300" className="animate-pulse-slow" />
+              
+              {/* Conexões ramificadas */}
+              <line x1="200" y1="300" x2="150" y2="250" className="animate-pulse-slow" style={{animationDelay: '0.5s'}} />
+              <line x1="200" y1="300" x2="150" y2="350" className="animate-pulse-slow" style={{animationDelay: '1s'}} />
+              <line x1="400" y1="300" x2="350" y2="200" className="animate-pulse-slow" style={{animationDelay: '1.5s'}} />
+              <line x1="400" y1="300" x2="450" y2="200" className="animate-pulse-slow" style={{animationDelay: '2s'}} />
+              <line x1="600" y1="300" x2="650" y2="250" className="animate-pulse-slow" style={{animationDelay: '2.5s'}} />
+              <line x1="600" y1="300" x2="650" y2="350" className="animate-pulse-slow" style={{animationDelay: '3s'}} />
+              
+              {/* Conexões secundárias */}
+              <line x1="150" y1="250" x2="100" y2="200" className="animate-pulse-slow" style={{animationDelay: '3.5s'}} />
+              <line x1="650" y1="250" x2="700" y2="200" className="animate-pulse-slow" style={{animationDelay: '4s'}} />
             </g>
-          ))}
-          
-          {/* Gradientes para as conexões e nós */}
-          <defs>
-            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.8" />
-              <stop offset="50%" stopColor="#3b82f6" stopOpacity="1" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
-            </linearGradient>
             
-            <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#0cc0df" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-        </svg>
+            {/* Nós neurais - posições precisas */}
+            <g fill="url(#nodeGradient)">
+              {/* Nós principais */}
+              <circle cx="200" cy="300" r="6" className="animate-pulse-glow" />
+              <circle cx="400" cy="300" r="8" className="animate-pulse-glow" style={{animationDelay: '1s'}} />
+              <circle cx="600" cy="300" r="6" className="animate-pulse-glow" style={{animationDelay: '2s'}} />
+              
+              {/* Nós secundários */}
+              <circle cx="150" cy="250" r="4" className="animate-pulse-glow" style={{animationDelay: '0.5s'}} />
+              <circle cx="150" cy="350" r="4" className="animate-pulse-glow" style={{animationDelay: '1.5s'}} />
+              <circle cx="350" cy="200" r="3" className="animate-pulse-glow" style={{animationDelay: '2.5s'}} />
+              <circle cx="450" cy="200" r="3" className="animate-pulse-glow" style={{animationDelay: '3.5s'}} />
+              <circle cx="650" cy="250" r="4" className="animate-pulse-glow" style={{animationDelay: '4.5s'}} />
+              <circle cx="650" cy="350" r="4" className="animate-pulse-glow" style={{animationDelay: '5.5s'}} />
+              
+              {/* Nós externos */}
+              <circle cx="100" cy="200" r="2" className="animate-pulse-glow" style={{animationDelay: '6s'}} />
+              <circle cx="700" cy="200" r="2" className="animate-pulse-glow" style={{animationDelay: '6.5s'}} />
+            </g>
+            
+            {/* Gradientes para as conexões e nós */}
+            <defs>
+              <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#3b82f6" stopOpacity="1" />
+                <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+              </linearGradient>
+              
+              <radialGradient id="nodeGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#0cc0df" stopOpacity="1" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
         
-        {/* Partículas de dados fluindo */}
+        {/* Partículas sutis */}
         <div className="absolute inset-0 overflow-hidden">
-          {dataParticles}
+          {subtleParticles}
         </div>
         
-        {/* Efeito de "consciousness awakening" */}
-        <div className="absolute inset-0 bg-gradient-radial from-cyan-500/5 via-transparent to-transparent opacity-50 animate-consciousness-pulse" />
-        
-        {/* Scanner de conexão neural */}
-        <div className="absolute top-10 right-10 w-16 h-16 opacity-40">
-          <div className="absolute inset-0 border border-cyan-400/40 rounded-full animate-ping" />
-          <div className="absolute inset-2 border border-blue-400/30 rounded-full animate-ping" style={{animationDelay: '1s'}} />
-          <Brain className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-cyan-400 animate-pulse" />
-        </div>
-        
-        {/* Ambient neural glow */}
-        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-cyan-500/3 rounded-full blur-3xl animate-neural-breathe" />
-        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-blue-500/3 rounded-full blur-2xl animate-neural-breathe" style={{animationDelay: '3s'}} />
+        {/* Ambient glow elegante */}
+        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl animate-pulse" style={{animationDelay: '3s'}} />
       </div>
 
       {/* Main container */}
       <div className="relative w-full max-w-md z-10">
-        {/* Outer glow ring */}
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/30 via-blue-500/20 to-cyan-500/30 rounded-3xl blur-sm opacity-75" />
+        {/* Outer glow ring - mais sutil */}
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-cyan-500/20 rounded-3xl blur-sm opacity-60" />
         
         {/* Glass morphism container */}
-        <div className="relative bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+        <div className="relative bg-gradient-to-br from-white/8 via-white/4 to-white/8 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
           
           {/* Header with Mind77 Logo */}
           <div className="text-center mb-8">
             {/* Mind77 Logo Integration */}
             <div className="relative mx-auto w-32 h-16 mb-6">
-              {/* Logo placeholder - substitua pela logo real */}
               <div className="w-full h-full flex items-center justify-center">
                 <div className="relative">
                   <div className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text">
@@ -275,15 +163,15 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 </div>
               </div>
               
-              {/* Orbiting neural elements */}
-              <div className="absolute inset-0 animate-spin" style={{animationDuration: '20s'}}>
-                <Cpu className="absolute w-3 h-3 text-cyan-400 -top-2 left-1/2 transform -translate-x-1/2" />
+              {/* Orbiting elements mais sutis */}
+              <div className="absolute inset-0 animate-spin" style={{animationDuration: '30s'}}>
+                <Cpu className="absolute w-3 h-3 text-cyan-400/60 -top-2 left-1/2 transform -translate-x-1/2" />
               </div>
-              <div className="absolute inset-0 animate-spin" style={{animationDuration: '15s', animationDirection: 'reverse'}}>
-                <Zap className="absolute w-3 h-3 text-blue-400 -right-2 top-1/2 transform -translate-y-1/2" />
+              <div className="absolute inset-0 animate-spin" style={{animationDuration: '25s', animationDirection: 'reverse'}}>
+                <Zap className="absolute w-2 h-2 text-blue-400/60 -right-2 top-1/2 transform -translate-y-1/2" />
               </div>
-              <div className="absolute inset-0 animate-spin" style={{animationDuration: '25s'}}>
-                <CircuitBoard className="absolute w-3 h-3 text-cyan-300 -bottom-2 left-1/2 transform -translate-x-1/2" />
+              <div className="absolute inset-0 animate-spin" style={{animationDuration: '35s'}}>
+                <CircuitBoard className="absolute w-2 h-2 text-cyan-300/60 -bottom-2 left-1/2 transform -translate-x-1/2" />
               </div>
             </div>
             
@@ -297,7 +185,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 AI AUTOMATION PLATFORM
               </p>
               <p className="text-gray-400 text-xs">
-                {networkFormed ? "Neural Network: ONLINE" : "Establishing Neural Pathways..."}
+                Advanced Intelligence Network
               </p>
             </div>
           </div>
@@ -323,7 +211,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 />
                 {aiScanning && (
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+                    <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
                   </div>
                 )}
               </div>
@@ -332,7 +220,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
             {/* Access Code Field */}
             <div className="space-y-3">
               <Label className="text-gray-300 text-sm flex items-center gap-2">
-                <CircuitBoard className="w-4 h-4 text-cyan-400" />
+                <Brain className="w-4 h-4 text-cyan-400" />
                 Access Protocol
               </Label>
               <div className="relative">
@@ -348,7 +236,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 />
                 {aiScanning && (
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+                    <Activity className="w-4 h-4 text-cyan-400 animate-pulse" />
                   </div>
                 )}
               </div>
@@ -391,11 +279,11 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
             <div className="mt-6 space-y-4">
               <div className="text-center space-y-2">
                 <div className="text-cyan-400 text-sm">
-                  {connectionProgress < 25 ? "Activating neural pathways..." :
-                   connectionProgress < 50 ? "Synchronizing brain patterns..." :
-                   connectionProgress < 75 ? "Establishing AI consciousness link..." :
-                   connectionProgress < 95 ? "Finalizing Mind77 integration..." :
-                   "Consciousness bridge established!"}
+                  {connectionProgress < 25 ? "Initializing quantum protocols..." :
+                   connectionProgress < 50 ? "Establishing neural pathways..." :
+                   connectionProgress < 75 ? "Synchronizing with AI core..." :
+                   connectionProgress < 95 ? "Finalizing secure handshake..." :
+                   "Neural link established"}
                 </div>
                 <div className="text-gray-400 text-xs">
                   {Math.round(connectionProgress)}% Complete
@@ -414,15 +302,15 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
               <div className="flex justify-center space-x-6 text-xs">
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                  <span className="text-gray-400">Neural Core</span>
+                  <span className="text-gray-400">Quantum Core</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
-                  <span className="text-gray-400">AI Synapse</span>
+                  <span className="text-gray-400">Neural Net</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
-                  <span className="text-gray-400">Mind77 Bridge</span>
+                  <span className="text-gray-400">AI Engine</span>
                 </div>
               </div>
             </div>
