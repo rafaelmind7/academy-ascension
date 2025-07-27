@@ -118,9 +118,92 @@ All colors MUST be HSL.
   }
 }
 
-/* ADICIONE APENAS ESTAS ANIMAÇÕES NO FINAL DO SEU index.css */
+/* ANIMAÇÕES NEURAIS AVANÇADAS */
 
-/* Animações elegantes e suaves */
+/* Animações da rede neural */
+@keyframes neural-node-appear {
+  0% { 
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes neural-connection-draw {
+  0% { 
+    stroke-dasharray: 0 1000;
+    opacity: 0;
+  }
+  100% { 
+    stroke-dasharray: 1000 0;
+    opacity: 1;
+  }
+}
+
+@keyframes neural-structure-glow {
+  0%, 100% { 
+    filter: brightness(1) drop-shadow(0 0 5px #0cc0df);
+  }
+  50% { 
+    filter: brightness(1.5) drop-shadow(0 0 20px #0cc0df);
+  }
+}
+
+@keyframes robot-eye-blink {
+  0%, 85%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  90%, 95% { 
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes neural-robot-transform {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes text-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes data-particle {
+  0% {
+    opacity: 0;
+    r: 1;
+  }
+  50% {
+    opacity: 1;
+    r: 2;
+  }
+  100% {
+    opacity: 0;
+    r: 1;
+  }
+}
+
 @keyframes float {
   0%, 100% { 
     transform: translateY(0px) rotate(0deg);
@@ -154,7 +237,39 @@ All colors MUST be HSL.
   }
 }
 
-/* Classes utilitárias mínimas */
+/* Classes utilitárias */
+.neural-node-appear {
+  animation: neural-node-appear 0.8s ease-out forwards;
+}
+
+.neural-connection-draw {
+  animation: neural-connection-draw 1s ease-out forwards;
+}
+
+.neural-structure-glow {
+  animation: neural-structure-glow 2s ease-in-out infinite;
+}
+
+.robot-eye-blink {
+  animation: robot-eye-blink 3s ease-in-out infinite;
+}
+
+.neural-robot-transform {
+  animation: neural-robot-transform 2s ease-out forwards;
+}
+
+.text-fade-in {
+  animation: text-fade-in 1s ease-out forwards;
+}
+
+.data-particle {
+  animation: data-particle 1s ease-in-out infinite;
+}
+
+.neural-text-glow {
+  text-shadow: 0 0 10px rgba(12, 192, 223, 0.5);
+}
+
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
