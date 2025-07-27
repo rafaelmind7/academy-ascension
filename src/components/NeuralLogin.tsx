@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Cpu, Zap, CircuitBoard, Eye, Radar } from "lucide-react";
+import { Loader2, Cpu, Zap, CircuitBoard, Eye, Brain } from "lucide-react";
 
 interface NeuralLoginProps {
   onLogin: () => void;
@@ -16,6 +16,13 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [keepConnection, setKeepConnection] = useState(false);
   const [aiScanning, setAiScanning] = useState(false);
+  const [networkFormed, setNetworkFormed] = useState(false);
+
+  useEffect(() => {
+    // Simular formação da rede neural ao carregar
+    const timer = setTimeout(() => setNetworkFormed(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleFocus = () => setAiScanning(true);
   const handleBlur = () => setAiScanning(false);
@@ -36,152 +43,212 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
     }, 150);
   };
 
-  // Matrix digital rain effect
-  const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ";
-  const digitalRain = Array.from({ length: 30 }, (_, i) => (
-    <div
-      key={i}
-      className="absolute text-cyan-400 opacity-20 text-xs font-mono animate-matrix-fall"
-      style={{
-        left: `${Math.random() * 100}%`,
-        animationDelay: `${Math.random() * 5}s`,
-        animationDuration: `${3 + Math.random() * 4}s`,
-      }}
-    >
-      {matrixChars.charAt(Math.floor(Math.random() * matrixChars.length))}
-    </div>
-  ));
-
-  // Floating code snippets
-  const codeSnippets = [
-    "function ai()",
-    "neural.connect()",
-    "brain.process()",
-    "quantum.sync()",
-    "mind77.init()",
-    "if(consciousness)",
-    "while(learning)",
-    "AI.evolve()",
+  // Nós neurais que formam a estrutura cerebral
+  const neuralNodes = [
+    // Região do cérebro (lado esquerdo da logo)
+    { x: 25, y: 30, size: 3, delay: 0, type: 'brain' },
+    { x: 35, y: 25, size: 2, delay: 0.5, type: 'brain' },
+    { x: 45, y: 35, size: 4, delay: 1, type: 'brain' },
+    { x: 30, y: 45, size: 2, delay: 1.5, type: 'brain' },
+    { x: 40, y: 55, size: 3, delay: 2, type: 'brain' },
+    { x: 20, y: 40, size: 2, delay: 2.5, type: 'brain' },
+    { x: 50, y: 45, size: 2, delay: 3, type: 'brain' },
+    { x: 35, y: 60, size: 3, delay: 3.5, type: 'brain' },
+    
+    // Região da lâmpada (lado direito da logo)
+    { x: 65, y: 35, size: 3, delay: 4, type: 'bulb' },
+    { x: 75, y: 30, size: 2, delay: 4.5, type: 'bulb' },
+    { x: 70, y: 45, size: 4, delay: 5, type: 'bulb' },
+    { x: 80, y: 40, size: 2, delay: 5.5, type: 'bulb' },
+    { x: 75, y: 55, size: 3, delay: 6, type: 'bulb' },
+    
+    // Nós de conexão central
+    { x: 55, y: 40, size: 5, delay: 6.5, type: 'core' },
+    { x: 50, y: 30, size: 3, delay: 7, type: 'core' },
+    { x: 60, y: 50, size: 3, delay: 7.5, type: 'core' },
+    
+    // Nós de dispersão (representando a rede se expandindo)
+    { x: 15, y: 20, size: 1, delay: 8, type: 'expansion' },
+    { x: 85, y: 25, size: 1, delay: 8.5, type: 'expansion' },
+    { x: 10, y: 60, size: 1, delay: 9, type: 'expansion' },
+    { x: 90, y: 65, size: 1, delay: 9.5, type: 'expansion' },
+    { x: 50, y: 15, size: 1, delay: 10, type: 'expansion' },
+    { x: 45, y: 75, size: 1, delay: 10.5, type: 'expansion' }
   ];
-  
-  const floatingCode = Array.from({ length: 8 }, (_, i) => (
+
+  // Conexões neurais que vão se formando
+  const neuralConnections = [
+    // Conexões internas do cérebro
+    { from: 0, to: 1, delay: 1 },
+    { from: 1, to: 2, delay: 1.5 },
+    { from: 2, to: 3, delay: 2 },
+    { from: 3, to: 4, delay: 2.5 },
+    { from: 0, to: 5, delay: 3 },
+    { from: 2, to: 6, delay: 3.5 },
+    { from: 4, to: 7, delay: 4 },
+    
+    // Conexões da lâmpada
+    { from: 8, to: 9, delay: 5 },
+    { from: 8, to: 10, delay: 5.5 },
+    { from: 10, to: 11, delay: 6 },
+    { from: 10, to: 12, delay: 6.5 },
+    
+    // Conexões centrais (cérebro para lâmpada)
+    { from: 2, to: 13, delay: 7 },
+    { from: 13, to: 8, delay: 7.5 },
+    { from: 6, to: 14, delay: 8 },
+    { from: 14, to: 10, delay: 8.5 },
+    { from: 4, to: 15, delay: 9 },
+    { from: 15, to: 12, delay: 9.5 },
+    
+    // Conexões de expansão
+    { from: 1, to: 16, delay: 10 },
+    { from: 9, to: 17, delay: 10.5 },
+    { from: 5, to: 18, delay: 11 },
+    { from: 11, to: 19, delay: 11.5 },
+    { from: 14, to: 20, delay: 12 },
+    { from: 15, to: 21, delay: 12.5 }
+  ];
+
+  // Partículas de dados fluindo pelas conexões
+  const dataParticles = Array.from({ length: 15 }, (_, i) => (
     <div
       key={i}
-      className="absolute text-blue-400/30 text-xs font-mono animate-code-float"
+      className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-80 animate-data-flow"
       style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
+        left: `${20 + Math.random() * 60}%`,
+        top: `${20 + Math.random() * 60}%`,
         animationDelay: `${Math.random() * 8}s`,
-        animationDuration: `${6 + Math.random() * 4}s`,
-      }}
-    >
-      {codeSnippets[Math.floor(Math.random() * codeSnippets.length)]}
-    </div>
-  ));
-
-  // Hexagonal tech patterns
-  const hexPatterns = Array.from({ length: 15 }, (_, i) => (
-    <div
-      key={i}
-      className="absolute border border-cyan-400/20 rotate-0 animate-hex-rotate"
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        width: `${20 + Math.random() * 40}px`,
-        height: `${20 + Math.random() * 40}px`,
-        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-        animationDelay: `${Math.random() * 6}s`,
-        animationDuration: `${8 + Math.random() * 4}s`,
-      }}
-    />
-  ));
-
-  // Circuit lines
-  const circuitLines = Array.from({ length: 12 }, (_, i) => (
-    <div
-      key={i}
-      className="absolute opacity-20 animate-circuit-pulse"
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        width: `${60 + Math.random() * 120}px`,
-        height: '2px',
-        background: 'linear-gradient(90deg, transparent, #0cc0df, transparent)',
-        transform: `rotate(${Math.random() * 360}deg)`,
-        animationDelay: `${Math.random() * 3}s`,
-        animationDuration: `${2 + Math.random() * 3}s`,
+        animationDuration: `${3 + Math.random() * 4}s`,
       }}
     />
   ));
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-      {/* Ultra Tech Background */}
+      {/* Background with Neural Network Formation */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-black">
         
-        {/* Animated grid pattern */}
+        {/* Base tech grid - mais sutil */}
         <div 
-          className="absolute inset-0 opacity-40 animate-grid-scan"
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(12, 192, 223, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(12, 192, 223, 0.1) 1px, transparent 1px),
-              linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px)
+              linear-gradient(rgba(12, 192, 223, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(12, 192, 223, 0.05) 1px, transparent 1px)
             `,
-            backgroundSize: '60px 60px, 60px 60px, 20px 20px, 20px 20px'
+            backgroundSize: '80px 80px'
           }}
         />
         
-        {/* Digital matrix rain */}
+        {/* Neural Network Formation SVG */}
+        <svg 
+          className="absolute inset-0 w-full h-full" 
+          viewBox="0 0 100 100" 
+          preserveAspectRatio="xMidYMid slice"
+        >
+          {/* Conexões neurais */}
+          {neuralConnections.map((connection, index) => {
+            const fromNode = neuralNodes[connection.from];
+            const toNode = neuralNodes[connection.to];
+            return (
+              <line
+                key={index}
+                x1={fromNode.x}
+                y1={fromNode.y}
+                x2={toNode.x}
+                y2={toNode.y}
+                stroke="url(#connectionGradient)"
+                strokeWidth="0.3"
+                opacity="0"
+                className="neural-connection-line"
+                style={{
+                  animation: `neural-line-form 1s ease-out ${connection.delay}s forwards`
+                }}
+              />
+            );
+          })}
+          
+          {/* Nós neurais */}
+          {neuralNodes.map((node, index) => (
+            <g key={index}>
+              {/* Glow externo */}
+              <circle
+                cx={node.x}
+                cy={node.y}
+                r={node.size + 1}
+                fill="url(#nodeGlow)"
+                opacity="0"
+                className="neural-node-glow"
+                style={{
+                  animation: `neural-node-form 0.8s ease-out ${node.delay}s forwards`
+                }}
+              />
+              {/* Nó principal */}
+              <circle
+                cx={node.x}
+                cy={node.y}
+                r={node.size}
+                fill={
+                  node.type === 'brain' ? '#0cc0df' :
+                  node.type === 'bulb' ? '#3b82f6' :
+                  node.type === 'core' ? '#06b6d4' :
+                  '#6366f1'
+                }
+                opacity="0"
+                className="neural-node"
+                style={{
+                  animation: `neural-node-form 0.5s ease-out ${node.delay}s forwards, neural-pulse 2s ease-in-out ${node.delay + 1}s infinite`
+                }}
+              />
+              {/* Pulso interno */}
+              <circle
+                cx={node.x}
+                cy={node.y}
+                r={node.size * 0.6}
+                fill="rgba(255, 255, 255, 0.8)"
+                opacity="0"
+                className="neural-node-core"
+                style={{
+                  animation: `neural-core-pulse 1.5s ease-in-out ${node.delay + 0.5}s infinite`
+                }}
+              />
+            </g>
+          ))}
+          
+          {/* Gradientes para as conexões e nós */}
+          <defs>
+            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#3b82f6" stopOpacity="1" />
+              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+            </linearGradient>
+            
+            <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#0cc0df" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+        
+        {/* Partículas de dados fluindo */}
         <div className="absolute inset-0 overflow-hidden">
-          {digitalRain}
+          {dataParticles}
         </div>
         
-        {/* Floating code snippets */}
-        <div className="absolute inset-0 overflow-hidden">
-          {floatingCode}
+        {/* Efeito de "consciousness awakening" */}
+        <div className="absolute inset-0 bg-gradient-radial from-cyan-500/5 via-transparent to-transparent opacity-50 animate-consciousness-pulse" />
+        
+        {/* Scanner de conexão neural */}
+        <div className="absolute top-10 right-10 w-16 h-16 opacity-40">
+          <div className="absolute inset-0 border border-cyan-400/40 rounded-full animate-ping" />
+          <div className="absolute inset-2 border border-blue-400/30 rounded-full animate-ping" style={{animationDelay: '1s'}} />
+          <Brain className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-cyan-400 animate-pulse" />
         </div>
         
-        {/* Hexagonal patterns */}
-        <div className="absolute inset-0 overflow-hidden">
-          {hexPatterns}
-        </div>
-        
-        {/* Circuit lines */}
-        <div className="absolute inset-0 overflow-hidden">
-          {circuitLines}
-        </div>
-        
-        {/* Radar scanning effect */}
-        <div className="absolute top-10 right-10 w-32 h-32 opacity-30">
-          <div className="absolute inset-0 border border-cyan-400/30 rounded-full animate-ping" />
-          <div className="absolute inset-2 border border-blue-400/20 rounded-full animate-ping" style={{animationDelay: '1s'}} />
-          <div className="absolute inset-4 border border-cyan-300/20 rounded-full animate-ping" style={{animationDelay: '2s'}} />
-          <Radar className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 text-cyan-400 animate-spin" style={{animationDuration: '4s'}} />
-        </div>
-        
-        {/* Holographic data streams */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-data-stream" />
-          <div className="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent animate-data-stream" style={{animationDelay: '2s'}} />
-          <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent animate-data-stream" style={{animationDelay: '4s'}} />
-        </div>
-        
-        {/* Ambient glow spots */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-glow-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-2xl animate-glow-pulse" style={{animationDelay: '3s'}} />
-        <div className="absolute top-3/4 left-3/4 w-48 h-48 bg-purple-500/5 rounded-full blur-xl animate-glow-pulse" style={{animationDelay: '6s'}} />
-        
-        {/* Vertical tech lines */}
-        <div className="absolute left-10 top-0 w-px h-full bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent animate-pulse" />
-        <div className="absolute right-20 top-0 w-px h-full bg-gradient-to-b from-transparent via-blue-400/20 to-transparent animate-pulse" style={{animationDelay: '1s'}} />
-        
-        {/* Corner tech elements */}
-        <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-cyan-400/50" />
-        <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-cyan-400/50" />
-        <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-cyan-400/50" />
-        <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-cyan-400/50" />
+        {/* Ambient neural glow */}
+        <div className="absolute top-1/4 left-1/3 w-64 h-64 bg-cyan-500/3 rounded-full blur-3xl animate-neural-breathe" />
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-blue-500/3 rounded-full blur-2xl animate-neural-breathe" style={{animationDelay: '3s'}} />
       </div>
 
       {/* Main container */}
@@ -196,9 +263,8 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
           <div className="text-center mb-8">
             {/* Mind77 Logo Integration */}
             <div className="relative mx-auto w-32 h-16 mb-6">
-              {/* Base64 da sua logo - substitua pela logo real */}
+              {/* Logo placeholder - substitua pela logo real */}
               <div className="w-full h-full flex items-center justify-center">
-                {/* SUBSTITUA por sua logo real - para agora usando um placeholder estilizado */}
                 <div className="relative">
                   <div className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text">
                     MIND77
@@ -209,7 +275,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 </div>
               </div>
               
-              {/* Orbiting elements around logo */}
+              {/* Orbiting neural elements */}
               <div className="absolute inset-0 animate-spin" style={{animationDuration: '20s'}}>
                 <Cpu className="absolute w-3 h-3 text-cyan-400 -top-2 left-1/2 transform -translate-x-1/2" />
               </div>
@@ -231,7 +297,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
                 AI AUTOMATION PLATFORM
               </p>
               <p className="text-gray-400 text-xs">
-                Advanced Intelligence Network
+                {networkFormed ? "Neural Network: ONLINE" : "Establishing Neural Pathways..."}
               </p>
             </div>
           </div>
@@ -325,11 +391,11 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
             <div className="mt-6 space-y-4">
               <div className="text-center space-y-2">
                 <div className="text-cyan-400 text-sm">
-                  {connectionProgress < 25 ? "Initializing quantum protocols..." :
-                   connectionProgress < 50 ? "Establishing neural pathways..." :
-                   connectionProgress < 75 ? "Synchronizing with AI core..." :
-                   connectionProgress < 95 ? "Finalizing secure handshake..." :
-                   "Neural link established"}
+                  {connectionProgress < 25 ? "Activating neural pathways..." :
+                   connectionProgress < 50 ? "Synchronizing brain patterns..." :
+                   connectionProgress < 75 ? "Establishing AI consciousness link..." :
+                   connectionProgress < 95 ? "Finalizing Mind77 integration..." :
+                   "Consciousness bridge established!"}
                 </div>
                 <div className="text-gray-400 text-xs">
                   {Math.round(connectionProgress)}% Complete
@@ -348,15 +414,15 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
               <div className="flex justify-center space-x-6 text-xs">
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
-                  <span className="text-gray-400">Quantum Core</span>
+                  <span className="text-gray-400">Neural Core</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.3s'}} />
-                  <span className="text-gray-400">Neural Net</span>
+                  <span className="text-gray-400">AI Synapse</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <div className="w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse" style={{animationDelay: '0.6s'}} />
-                  <span className="text-gray-400">AI Engine</span>
+                  <span className="text-gray-400">Mind77 Bridge</span>
                 </div>
               </div>
             </div>
