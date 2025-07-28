@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import NeuralLogin from "@/components/NeuralLogin";
-import NeuralDashboard from "@/components/NeuralDashboard";
-import AutomationNexus from "@/components/AutomationNexus";
+import SimpleLogin from "@/components/SimpleLogin";
+import SimpleDashboard from "@/components/SimpleDashboard";
+import SimpleAutomation from "@/components/SimpleAutomation";
 
 type ViewState = "login" | "dashboard" | "automation";
 
@@ -22,13 +22,13 @@ const Index = () => {
 
   switch (currentView) {
     case "login":
-      return <NeuralLogin onLogin={handleLogin} />;
+      return <SimpleLogin onLogin={handleLogin} />;
     case "dashboard":
-      return <NeuralDashboard onNavigateToAutomation={handleNavigateToAutomation} />;
+      return <SimpleDashboard onNavigateToAutomation={handleNavigateToAutomation} />;
     case "automation":
-      return <AutomationNexus onBackToDashboard={handleBackToDashboard} />;
+      return <SimpleAutomation onBackToDashboard={handleBackToDashboard} />;
     default:
-      return <NeuralLogin onLogin={handleLogin} />;
+      return <SimpleLogin onLogin={handleLogin} />;
   }
 };
 
