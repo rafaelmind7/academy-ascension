@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface VideoIntroProps {
-  onIntroComplete: () => void;
+  onComplete: () => void;
 }
 
-const VideoIntro: React.FC<VideoIntroProps> = ({ onIntroComplete }) => {
+const VideoIntro: React.FC<VideoIntroProps> = ({ onComplete }) => {
   const [videoEnded, setVideoEnded] = useState(false);
   const [showBlackOut, setShowBlackOut] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
@@ -19,7 +19,7 @@ const VideoIntro: React.FC<VideoIntroProps> = ({ onIntroComplete }) => {
       setTimeout(() => {
         setShowLightning(true);
         // Complete intro after lightning
-        setTimeout(() => onIntroComplete(), 1200);
+        setTimeout(() => onComplete(), 1200);
       }, 800);
     }, 300);
   };

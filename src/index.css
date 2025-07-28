@@ -272,3 +272,9 @@
     transform: scale(1) translateY(0);
   }
 }
+
+/* Electric Flow Animation */
+@keyframes electricFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 300% 300%; }
+}
