@@ -1,13 +1,9 @@
-import React, { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Brain, Loader2, Eye } from "lucide-react";
-import VideoIntro from "@/components/VideoIntro";
-import AnimatedBackground from "@/components/AnimatedBackground";
-import WelcomeTitle from "@/components/WelcomeTitle";
+import { Brain, Loader2 } from "lucide-react";
 
 interface NeuralLoginProps {
   onLogin: () => void;
@@ -18,180 +14,175 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [keepConnection, setKeepConnection] = useState(false);
-  const [introComplete, setIntroComplete] = useState(false);
-  const [showLoginCard, setShowLoginCard] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const handleIntroComplete = () => {
-    setIntroComplete(true);
-    // Show login card after a brief delay
-    setTimeout(() => setShowLoginCard(true), 800);
-  };
-
-  // Mouse tracking for parallax effect
-  React.useEffect(() => {
-    if (!introComplete) return;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cardRef.current) {
-        const rect = cardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        setMousePosition({
-          x: (e.clientX - centerX) / 30,
-          y: (e.clientY - centerY) / 30
-        });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [introComplete]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsConnecting(true);
-    setTimeout(() => onLogin(), 3000);
+    
+    setTimeout(() => {
+      onLogin();
+    }, 3000);
   };
 
+  const renderCircuits = () => {
+    const circuits = [];
+    const width = typeof window !== 'undefined' ? window.innerWidth : 1920;
+    const height = typeof window !== 'undefined' ? window.innerHeight : 1080;
+    
+    for (let i = 0; i < 15; i++) {
+      const startX = Math.random() * width;
+      const startY = Math.random() * height;
+      const isHorizontal = Math.random() > 0.5;
+      
+      const endX = isHorizontal ? startX + 100 + Math.random() * 200 : startX;
+      const endY = isHorizontal ? startY : startY + 100 + Math.random() * 200;
+      
+      circuits.push(
+        <g key={`circuit-${i}`}>
+          <line
+            x1={startX}
+            y1={startY}
+            x2={endX}
+            y2={endY}
+            className={`circuit-line ${Math.random() > 0.6 ? 'energy-pulse' : 'circuit-glow'}`}
+            style={{ animationDelay: `${Math.random() * 3}s` }}
+          />
+          <circle
+            cx={startX}
+            cy={startY}
+            r="2"
+            className="circuit-node"
+          />
+          <circle
+            cx={endX}
+            cy={endY}
+            r="2"
+            className="circuit-node"
+          />
+        </g>
+      );
+    }
+    
+    for (let i = 0; i < 25; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      
+      circuits.push(
+        <circle
+          key={`node-${i}`}
+          cx={x}
+          cy={y}
+          r="1.5"
+          className="circuit-node energy-pulse"
+          style={{ animationDelay: `${Math.random() * 4}s` }}
+        />
+      );
+    }
+    
+    return circuits;
+  };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Video Intro */}
-      {!introComplete && (
-        <VideoIntro onIntroComplete={handleIntroComplete} />
-      )}
+    <div className="min-h-screen bg-black">
+      {/* Neural Circuits Background */}
+      <div className="neural-circuits">
+        <svg className="absolute inset-0 w-full h-full">
+          {renderCircuits()}
+        </svg>
+      </div>
 
-      {/* Main Interface */}
-      {introComplete && (
-        <>
-          {/* Animated Background */}
-          <AnimatedBackground />
-          
-          {/* Welcome Title */}
-          <WelcomeTitle />
-        </>
-      )}
+      {/* Welcome Message */}
+      <div className="welcome-header">
+        <h1 className="welcome-title">Welcome to the AI Automation Platform</h1>
+        <p className="welcome-subtitle">Mind77 Neural Academy</p>
+      </div>
 
-      {/* LOGIN CARD - Positioned below title */}
-      {showLoginCard && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-30" style={{ paddingTop: '200px' }}>
-          <motion.div 
-            ref={cardRef}
-            initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
-            animate={{ 
-              scale: 1, 
-              opacity: 1, 
-              filter: "blur(0px)",
-              x: mousePosition.x * 0.3,
-              y: mousePosition.y * 0.3
-            }}
-            transition={{ 
-              duration: 0.8,
-              type: "spring",
-              stiffness: 120,
-              damping: 20
-            }}
-            className="relative w-full max-w-md"
-          >
-            {/* Energy Border Effect */}
-            <div className="absolute -inset-1 rounded-3xl energy-border" />
-          
-          <div className="relative bg-gradient-to-br from-white/8 via-white/4 to-white/8 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl card-glow">
-          
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="mx-auto w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4">
-              <Brain className="w-8 h-8 text-primary animate-pulse" />
+      {/* Login Form */}
+      <div className="login-container">
+        <div className="electric-border">
+          <div className="form-content">
+            <div className="text-center mb-6">
+              <div className="mx-auto w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center mb-3">
+                <Brain className="w-6 h-6 text-cyan-400 pulse-glow" />
+              </div>
+              <h2 className="text-lg font-semibold text-white mb-1">Neural Access Portal</h2>
+              <p className="text-gray-400 text-sm">Authenticate to continue</p>
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2 tracking-wider">NEURAL ACCESS</h1>
-            <p className="text-cyan-300 text-sm">AI Automation Platform</p>
-          </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="email" className="text-gray-300 text-sm flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-cyan-400" />
-                  Neural Identity
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/5 border border-white/20 text-white placeholder:text-gray-500 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 rounded-xl h-12 mt-2"
-                  placeholder="neural.id@mind77.com"
-                  required
-                />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="email" className="text-gray-300 text-sm">
+                    Neural Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-1 bg-black/50 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400"
+                    placeholder="neural.access@mind77.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="password" className="text-gray-300 text-sm">
+                    Access Code
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="mt-1 bg-black/50 border-cyan-500/30 text-white placeholder:text-gray-500 focus:border-cyan-400 focus:ring-cyan-400"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
               </div>
 
-              <div>
-                <Label htmlFor="password" className="text-gray-300 text-sm flex items-center gap-2">
-                  <Brain className="w-4 h-4 text-cyan-400" />
-                  Access Protocol
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/5 border border-white/20 text-white placeholder:text-gray-500 focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20 rounded-xl h-12 mt-2"
-                  placeholder="•••••••••••••••"
-                  required
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="keep-connection"
+                  checked={keepConnection}
+                  onCheckedChange={(checked) => setKeepConnection(checked === true)}
+                  className="border-cyan-500/30 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
                 />
+                <Label htmlFor="keep-connection" className="text-gray-300 text-sm">
+                  Maintain neural connection
+                </Label>
               </div>
-            </div>
 
-            <div className="flex items-center space-x-3 py-2">
-              <Checkbox
-                id="keep-connection"
-                checked={keepConnection}
-                onCheckedChange={(checked) => setKeepConnection(checked === true)}
-                className="border-white/30 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
-              />
-              <Label htmlFor="keep-connection" className="text-gray-300 text-sm">
-                Maintain neural link persistence
-              </Label>
-            </div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
               <Button
                 type="submit"
                 disabled={isConnecting}
-                className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary text-white font-medium py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 disabled:opacity-50 h-14 energy-button"
+                className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-2.5 rounded-lg transition-all duration-300 hover:scale-105 disabled:opacity-50"
               >
-              {isConnecting ? (
-                <div className="flex items-center justify-center space-x-3">
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Establishing Neural Link</span>
-                </div>
-              ) : (
-                "Initialize Connection"
-              )}
+                {isConnecting ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Connecting to Neural Network...</span>
+                  </div>
+                ) : (
+                  "Access Neural Academy"
+                )}
               </Button>
-            </motion.div>
-          </form>
+            </form>
 
-          {isConnecting && (
-            <div className="mt-6 text-center">
-              <div className="text-cyan-400 text-sm animate-pulse">
-                Establishing neural connection...
+            {isConnecting && (
+              <div className="mt-4 text-center">
+                <div className="text-cyan-400 text-sm animate-pulse">
+                  Establishing neural connection...
+                </div>
+                <div className="mt-2 bg-gray-800 rounded-full h-1 overflow-hidden">
+                  <div className="h-full bg-cyan-400 rounded-full animate-pulse w-full" />
+                </div>
               </div>
-              <div className="mt-2 bg-white/10 rounded-full h-1 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full animate-pulse w-full" />
-              </div>
-            </div>
-          )}
+            )}
           </div>
-        </motion.div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
