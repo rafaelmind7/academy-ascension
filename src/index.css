@@ -1,3 +1,4 @@
+(cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF'
 diff --git a/index.css b/index.css
 --- a/index.css
 +++ b/index.css
@@ -491,3 +492,5 @@ diff --git a/index.css b/index.css
 +    }
 +  }
 +}
+EOF
+)
