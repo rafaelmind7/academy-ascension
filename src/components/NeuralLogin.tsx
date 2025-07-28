@@ -74,9 +74,9 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
         </>
       )}
 
-      {/* LOGIN CARD */}
+      {/* LOGIN CARD - Positioned below title */}
       {showLoginCard && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 z-30">
+        <div className="fixed inset-0 flex items-center justify-center p-4 z-30" style={{ paddingTop: '200px' }}>
           <motion.div 
             ref={cardRef}
             initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
