@@ -1,3 +1,4 @@
+(cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF'
 diff --git a/NeuralLogin.tsx b/NeuralLogin.tsx
 --- a/NeuralLogin.tsx
 +++ b/NeuralLogin.tsx
@@ -374,3 +375,5 @@ diff --git a/NeuralLogin.tsx b/NeuralLogin.tsx
 +};
 +
 +export default NeuralLogin;
+EOF
+)
