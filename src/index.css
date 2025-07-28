@@ -2,83 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Neural Login Electrical Effects */
-@keyframes electricalPulse {
+/* Cinematic Login Effects */
+@keyframes energyFlow {
   0%, 100% { 
     box-shadow: 
-      0 0 5px #0cc0df,
-      0 0 10px #0cc0df,
-      0 0 15px #0cc0df,
-      0 0 20px #06b6d4,
-      inset 0 0 5px #0cc0df;
+      0 0 5px hsl(var(--primary)),
+      0 0 10px hsl(var(--primary)),
+      0 0 15px hsl(var(--primary)),
+      0 0 20px hsl(var(--primary) / 0.5),
+      inset 0 0 5px hsl(var(--primary) / 0.3);
   }
   50% { 
     box-shadow: 
-      0 0 2px #0cc0df,
-      0 0 5px #0cc0df,
-      0 0 8px #0cc0df,
-      0 0 12px #06b6d4,
-      inset 0 0 2px #0cc0df;
+      0 0 10px hsl(var(--primary)),
+      0 0 20px hsl(var(--primary)),
+      0 0 30px hsl(var(--primary)),
+      0 0 40px hsl(var(--primary) / 0.7),
+      inset 0 0 10px hsl(var(--primary) / 0.5);
   }
 }
 
-@keyframes lightningStrike {
-  0% { 
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    opacity: 0;
-  }
-  1% { opacity: 1; }
-  5% { 
+@keyframes circuitPulse {
+  0%, 100% { 
+    stroke-dasharray: 20, 5;
     stroke-dashoffset: 0;
+    opacity: 0.6;
+  }
+  50% { 
+    stroke-dasharray: 20, 5;
+    stroke-dashoffset: 25;
     opacity: 1;
   }
-  10% { opacity: 0.7; }
-  15% { opacity: 0; }
-  100% { 
-    stroke-dashoffset: -1000;
-    opacity: 0;
-  }
 }
 
-@keyframes neuralPulse {
+@keyframes nodePulse {
   0%, 100% { 
-    box-shadow: 
-      0 0 20px rgba(12, 192, 223, 0.4),
-      0 0 40px rgba(12, 192, 223, 0.2),
-      0 0 60px rgba(12, 192, 223, 0.1);
+    opacity: 0.8;
+    transform: scale(1);
   }
   50% { 
-    box-shadow: 
-      0 0 25px rgba(12, 192, 223, 0.6),
-      0 0 50px rgba(12, 192, 223, 0.3),
-      0 0 75px rgba(12, 192, 223, 0.15);
+    opacity: 1;
+    transform: scale(1.2);
+    filter: brightness(1.5);
   }
 }
 
-.electrical-border {
-  background: linear-gradient(45deg, 
+@keyframes luminousText {
+  0%, 100% { 
+    text-shadow: 
+      0 0 5px hsl(var(--primary)),
+      0 0 10px hsl(var(--primary)),
+      0 0 15px hsl(var(--primary) / 0.5);
+  }
+  50% { 
+    text-shadow: 
+      0 0 10px hsl(var(--primary)),
+      0 0 20px hsl(var(--primary)),
+      0 0 30px hsl(var(--primary) / 0.7);
+  }
+}
+
+.energy-border {
+  background: linear-gradient(90deg, 
     transparent, 
-    rgba(12, 192, 223, 0.3), 
+    hsl(var(--primary) / 0.5), 
     transparent, 
-    rgba(59, 130, 246, 0.3), 
+    hsl(var(--primary) / 0.3), 
     transparent
   );
-  background-size: 400% 400%;
-  animation: electricalPulse 2s ease-in-out infinite;
+  background-size: 200% 200%;
+  animation: energyFlow 2s ease-in-out infinite;
 }
 
-.lightning-path {
-  animation: lightningStrike 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 3px #0cc0df);
+.circuit-line {
+  animation: circuitPulse 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px currentColor);
 }
 
-.neural-glow {
-  animation: neuralPulse 3s ease-in-out infinite;
+.circuit-node {
+  animation: nodePulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px currentColor);
 }
 
-.neural-button:hover {
-  animation: neuralPulse 1s ease-in-out infinite;
+.card-glow {
+  box-shadow: 
+    0 0 20px hsl(var(--primary) / 0.3),
+    0 0 40px hsl(var(--primary) / 0.2),
+    0 0 60px hsl(var(--primary) / 0.1);
+}
+
+.energy-button:hover {
+  animation: energyFlow 1s ease-in-out infinite;
+  transform: translateY(-1px);
+}
+
+.luminous-text {
+  animation: luminousText 3s ease-in-out infinite;
 }
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
