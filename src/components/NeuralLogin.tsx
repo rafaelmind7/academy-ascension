@@ -20,8 +20,8 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [keepConnection, setKeepConnection] = useState(false);
   
   // Animation states
-  const [showVideoIntro, setShowVideoIntro] = useState(false); // Set to true to enable video
-  const [introComplete, setIntroComplete] = useState(true); // Set to false when video is enabled
+  const [showVideoIntro, setShowVideoIntro] = useState(true); // Activate video intro
+  const [introComplete, setIntroComplete] = useState(false); // Start with complete sequence
   const [showInterface, setShowInterface] = useState(true);
 
   useEffect(() => {
@@ -78,13 +78,16 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
             className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-[102]"
           >
             <div className="relative">
-              {/* Electric Border Animation */}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 animate-pulse" 
+              {/* Enhanced Electric Border Animation */}
+              <div className="absolute inset-0 rounded-xl opacity-60" 
                    style={{
                      background: 'linear-gradient(45deg, transparent, hsl(var(--primary)), transparent, hsl(var(--primary)), transparent)',
-                     backgroundSize: '300% 300%',
-                     animation: 'electricFlow 4s linear infinite'
+                     backgroundSize: '400% 400%',
+                     animation: 'electricFlow 3s ease-in-out infinite'
                    }} />
+              
+              {/* Electric Arcs */}
+              <div className="neural-electric-arcs" />
               
               {/* Form Content */}
               <div className="relative bg-black/90 backdrop-blur-xl border border-primary/20 rounded-xl p-8 min-w-[400px]">

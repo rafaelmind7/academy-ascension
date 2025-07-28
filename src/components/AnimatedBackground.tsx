@@ -139,30 +139,49 @@ const AnimatedBackground: React.FC = () => {
         if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
         if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
         
-        // Update energy and pulse
+        // Enhanced neural breathing effect
         node.pulsePhase += 0.05 + node.energy * 0.1;
         const pulseIntensity = Math.sin(node.pulsePhase) * 0.5 + 0.5;
-        node.energy = 0.3 + Math.sin(time * 1.5 + index * 0.1) * 0.3 + pulseIntensity * 0.4;
+        const neuralBreathing = Math.sin(time * 0.8) * 0.2 + 0.8; // Global neural sync
+        node.energy = (0.3 + Math.sin(time * 1.5 + index * 0.1) * 0.3 + pulseIntensity * 0.4) * neuralBreathing;
         
-        // Draw node
+        // Ultra-realistic node rendering with depth
         const nodeRadius = node.radius + pulseIntensity * 2;
-        const brightness = 40 + node.energy * 30;
+        const brightness = 40 + node.energy * 40;
+        const hueShift = Math.sin(index * 0.1 + time * 0.5) * 15; // Subtle color variations
         
-        // Node glow
-        ctx.shadowColor = `hsl(188, 95%, ${brightness}%)`;
-        ctx.shadowBlur = 8 + pulseIntensity * 12;
-        ctx.fillStyle = `hsla(188, 95%, ${brightness}%, ${0.6 + node.energy * 0.4})`;
+        // Outer glow (atmospheric effect)
+        ctx.shadowColor = `hsl(${188 + hueShift}, 95%, ${brightness * 0.8}%)`;
+        ctx.shadowBlur = 20 + pulseIntensity * 18;
+        ctx.fillStyle = `hsla(${188 + hueShift}, 95%, ${brightness}%, ${0.3 + node.energy * 0.4})`;
+        
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, nodeRadius * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Main node body
+        ctx.shadowBlur = 12 + pulseIntensity * 8;
+        ctx.fillStyle = `hsla(${188 + hueShift}, 95%, ${brightness + 10}%, ${0.7 + node.energy * 0.3})`;
         
         ctx.beginPath();
         ctx.arc(node.x, node.y, nodeRadius, 0, Math.PI * 2);
         ctx.fill();
         
-        // Core node
-        ctx.shadowBlur = 15;
-        ctx.fillStyle = `hsl(188, 95%, ${70 + pulseIntensity * 20}%)`;
+        // Bright core (neural center)
+        ctx.shadowBlur = 20;
+        ctx.fillStyle = `hsl(${188 + hueShift}, 95%, ${80 + pulseIntensity * 15}%)`;
         ctx.beginPath();
         ctx.arc(node.x, node.y, nodeRadius * 0.4, 0, Math.PI * 2);
         ctx.fill();
+        
+        // Ultra-bright center point
+        if (node.energy > 0.8) {
+          ctx.shadowBlur = 25;
+          ctx.fillStyle = `hsl(${188 + hueShift}, 100%, 95%)`;
+          ctx.beginPath();
+          ctx.arc(node.x, node.y, nodeRadius * 0.15, 0, Math.PI * 2);
+          ctx.fill();
+        }
       });
 
       // Reset shadow
