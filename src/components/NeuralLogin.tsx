@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Brain, Loader2, Eye } from "lucide-react";
+import { Brain, Loader2, Eye, Play, Pause } from "lucide-react";
 
 interface NeuralLoginProps {
   onLogin: () => void;
@@ -17,6 +17,8 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [animationPhase, setAnimationPhase] = useState(0);
   const [showWelcome, setShowWelcome] = useState(false);
   const [showCompany, setShowCompany] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
+  const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
   // Controla as fases da animação
   useEffect(() => {
@@ -41,6 +43,17 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
     e.preventDefault();
     setIsConnecting(true);
     setTimeout(() => onLogin(), 3000);
+  };
+
+  const toggleVideo = () => {
+    if (videoRef) {
+      if (isVideoPlaying) {
+        videoRef.pause();
+      } else {
+        videoRef.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
   };
 
   // Configuração dos nós que formam a logo Mind77
@@ -98,8 +111,27 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+      {/* Background Video */}
+      <video
+        ref={setVideoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwZjE3MmEiLz48L3N2Zz4="
+      >
+        <source 
+          src="https://wqrcmdgmvzoqbvggqzho.supabase.co/storage/v1/object/public/lovable//AI_Video_Creation_Confirmation.mp4" 
+          type="video/mp4" 
+        />
+      </video>
+      
+      {/* Video Overlay */}
+      <div className="absolute inset-0 bg-black/50" />
+      
+      {/* Fallback Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 -z-10" />
       
       {/* Grid sutil */}
       <div 
@@ -214,6 +246,15 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
           </div>
         )}
       </div>
+
+      {/* Video Controls */}
+      <button
+        onClick={toggleVideo}
+        className="absolute top-4 right-4 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
+        aria-label={isVideoPlaying ? "Pause video" : "Play video"}
+      >
+        {isVideoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+      </button>
 
       {/* CARD DE LOGIN */}
       <div className="relative w-full max-w-md z-10">
