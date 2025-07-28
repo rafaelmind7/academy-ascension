@@ -2,6 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Neural Login Electrical Effects */
+@keyframes electricalPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 5px #0cc0df,
+      0 0 10px #0cc0df,
+      0 0 15px #0cc0df,
+      0 0 20px #06b6d4,
+      inset 0 0 5px #0cc0df;
+  }
+  50% { 
+    box-shadow: 
+      0 0 2px #0cc0df,
+      0 0 5px #0cc0df,
+      0 0 8px #0cc0df,
+      0 0 12px #06b6d4,
+      inset 0 0 2px #0cc0df;
+  }
+}
+
+@keyframes lightningStrike {
+  0% { 
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  1% { opacity: 1; }
+  5% { 
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  10% { opacity: 0.7; }
+  15% { opacity: 0; }
+  100% { 
+    stroke-dashoffset: -1000;
+    opacity: 0;
+  }
+}
+
+@keyframes neuralPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 20px rgba(12, 192, 223, 0.4),
+      0 0 40px rgba(12, 192, 223, 0.2),
+      0 0 60px rgba(12, 192, 223, 0.1);
+  }
+  50% { 
+    box-shadow: 
+      0 0 25px rgba(12, 192, 223, 0.6),
+      0 0 50px rgba(12, 192, 223, 0.3),
+      0 0 75px rgba(12, 192, 223, 0.15);
+  }
+}
+
+.electrical-border {
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(12, 192, 223, 0.3), 
+    transparent, 
+    rgba(59, 130, 246, 0.3), 
+    transparent
+  );
+  background-size: 400% 400%;
+  animation: electricalPulse 2s ease-in-out infinite;
+}
+
+.lightning-path {
+  animation: lightningStrike 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px #0cc0df);
+}
+
+.neural-glow {
+  animation: neuralPulse 3s ease-in-out infinite;
+}
+
+.neural-button:hover {
+  animation: neuralPulse 1s ease-in-out infinite;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */

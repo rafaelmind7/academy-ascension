@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,9 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
   const [showCompany, setShowCompany] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(true);
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [cardVisible, setCardVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Controla as fases da animação
   useEffect(() => {
@@ -37,6 +41,27 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
         if (phase === 5) setShowCompany(true);
       }, delay);
     });
+
+    // Show login card after neural animation
+    setTimeout(() => setCardVisible(true), 16000);
+  }, []);
+
+  // Mouse tracking for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        setMousePosition({
+          x: (e.clientX - centerX) / 20,
+          y: (e.clientY - centerY) / 20
+        });
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -113,10 +138,18 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
     <div className="min-h-screen relative overflow-hidden flex items-center justify-center p-4">
       {/* Background Video */}
       <video
-        ref={setVideoRef}
-        className="absolute inset-0 w-full h-full object-cover"
+        ref={(ref) => {
+          setVideoRef(ref);
+          if (ref) {
+            ref.addEventListener('ended', () => {
+              ref.currentTime = ref.duration;
+              ref.pause();
+            });
+          }
+        }}
+        className="absolute inset-0 w-full h-full object-cover z-0"
         autoPlay
-        loop
+        loop={false}
         muted
         playsInline
         poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB2aWV3Qm94PSIwIDAgMSAxIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwZjE3MmEiLz48L3N2Zz4="
@@ -128,7 +161,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
       </video>
       
       {/* Video Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/30 z-10" />
       
       {/* Fallback Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 -z-10" />
@@ -146,7 +179,7 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
       />
 
       {/* ANIMAÇÃO DA REDE NEURAL */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
         <svg 
           className="w-full h-full max-w-6xl max-h-6xl" 
           viewBox="0 0 100 100" 
@@ -250,17 +283,55 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
       {/* Video Controls */}
       <button
         onClick={toggleVideo}
-        className="absolute top-4 right-4 z-20 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
+        className="absolute top-4 right-4 z-30 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200"
         aria-label={isVideoPlaying ? "Pause video" : "Play video"}
       >
         {isVideoPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
       </button>
 
       {/* CARD DE LOGIN */}
-      <div className="relative w-full max-w-md z-10">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-cyan-500/20 rounded-3xl blur-sm opacity-60" />
-        
-        <div className="relative bg-gradient-to-br from-white/8 via-white/4 to-white/8 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl">
+      {cardVisible && (
+        <motion.div 
+          ref={cardRef}
+          initial={{ scale: 0.8, opacity: 0, filter: "blur(10px)" }}
+          animate={{ 
+            scale: 1, 
+            opacity: 1, 
+            filter: "blur(0px)",
+            x: mousePosition.x * 0.5,
+            y: mousePosition.y * 0.5
+          }}
+          transition={{ 
+            duration: 1.2,
+            type: "spring",
+            stiffness: 100,
+            damping: 15
+          }}
+          className="relative w-full max-w-md z-30"
+        >
+          {/* Electrical Border Effect */}
+          <div className="absolute -inset-1 rounded-3xl electrical-border" />
+          
+          {/* Lightning Strikes */}
+          <svg className="absolute -inset-4 w-full h-full pointer-events-none z-10" viewBox="0 0 400 600">
+            <path
+              d="M50,100 Q200,50 350,100 Q300,200 250,300 Q200,250 150,350 Q100,300 50,400"
+              stroke="url(#lightningGradient)"
+              strokeWidth="2"
+              fill="none"
+              className="lightning-path"
+              pathLength="1"
+            />
+            <defs>
+              <linearGradient id="lightningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0cc0df" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#3b82f6" stopOpacity="1" />
+                <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          <div className="relative bg-gradient-to-br from-white/8 via-white/4 to-white/8 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-2xl neural-glow">
           
           {/* Header */}
           <div className="text-center mb-8">
@@ -319,11 +390,15 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
               </Label>
             </div>
 
-            <Button
-              type="submit"
-              disabled={isConnecting}
-              className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 h-14"
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
+              <Button
+                type="submit"
+                disabled={isConnecting}
+                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-medium py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 h-14 neural-button"
+              >
               {isConnecting ? (
                 <div className="flex items-center justify-center space-x-3">
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -332,7 +407,8 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
               ) : (
                 "Initialize Connection"
               )}
-            </Button>
+              </Button>
+            </motion.div>
           </form>
 
           {isConnecting && (
@@ -345,8 +421,9 @@ const NeuralLogin: React.FC<NeuralLoginProps> = ({ onLogin }) => {
               </div>
             </div>
           )}
-        </div>
-      </div>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };
